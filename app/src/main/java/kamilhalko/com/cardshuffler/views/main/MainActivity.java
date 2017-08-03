@@ -3,13 +3,13 @@ package kamilhalko.com.cardshuffler.views.main;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v7.app.AppCompatActivity;
 
+import kamilhalko.com.cardshuffler.base.BaseActivity;
 import kamilhalko.com.cardshuffler.R;
 import kamilhalko.com.cardshuffler.views.cards.CardsFragment;
 import kamilhalko.com.cardshuffler.views.welcome.WelcomeFragment;
 
-public class MainActivity extends AppCompatActivity implements WelcomeFragment.OnDecksNumberChosenListener {
+public class MainActivity extends BaseActivity implements WelcomeFragment.OnDecksNumberChosenListener {
     private FragmentManager fragmentManager = getSupportFragmentManager();
 
     @Override

@@ -6,7 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import kamilhalko.com.cardshuffler.BaseFragment;
+import kamilhalko.com.cardshuffler.base.BaseFragment;
 import kamilhalko.com.cardshuffler.R;
 
 public class CardsFragment extends BaseFragment {

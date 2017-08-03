@@ -7,15 +7,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.SeekBar;
 
+import javax.inject.Inject;
+
 import io.reactivex.annotations.NonNull;
-import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.functions.Consumer;
-import kamilhalko.com.cardshuffler.BaseFragment;
+import kamilhalko.com.cardshuffler.base.BaseFragment;
 import kamilhalko.com.cardshuffler.R;
-import kamilhalko.com.cardshuffler.data.DataManagerImpl;
 
 public class WelcomeFragment extends BaseFragment {
-    private WelcomeViewModel viewModel;
+    @Inject WelcomeViewModel viewModel;
     private SeekBar seekBar;
     private OnDecksNumberChosenListener callback;
 
@@ -38,12 +38,12 @@ public class WelcomeFragment extends BaseFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_welcome, container, false);
+        getActivityComponent().inject(this);
         init();
         return view;
     }
 
     private void init() {
-        viewModel = new WelcomeViewModel(new DataManagerImpl(), new CompositeDisposable());
         setUpView();
         setUpObservables();
     }

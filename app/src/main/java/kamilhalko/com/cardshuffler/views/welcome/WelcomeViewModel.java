@@ -2,7 +2,7 @@ package kamilhalko.com.cardshuffler.views.welcome;
 
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.subjects.PublishSubject;
-import kamilhalko.com.cardshuffler.ViewModel;
+import kamilhalko.com.cardshuffler.base.ViewModel;
 import kamilhalko.com.cardshuffler.data.DataManager;
 
 public class WelcomeViewModel extends ViewModel {
