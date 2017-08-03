@@ -5,11 +5,6 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
-    <style name="ToolbarText" parent="TextAppearance.AppCompat.Widget.ActionBar.Title">
-        <item name="android:textColor">@color/colorAccent</item>
-        <item name="android:fontFamily">sans-serif-light</item>
-    </style>
-
     <style name="TextStyle">
         <item name="android:textColor">@color/colorAccent</item>
         <item name="android:fontFamily">sans-serif-light</item>
