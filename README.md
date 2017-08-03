@@ -1,2 +1,2 @@
 # CardShuffler
-Sample application that make use of Deck of Cards API
+Sample application that makes use of Deck of Cards API
