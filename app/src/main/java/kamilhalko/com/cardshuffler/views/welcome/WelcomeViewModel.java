@@ -1,5 +1,7 @@
 package kamilhalko.com.cardshuffler.views.welcome;
 
+import javax.inject.Inject;
+
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.subjects.PublishSubject;
 import kamilhalko.com.cardshuffler.base.ViewModel;
@@ -9,6 +11,7 @@ public class WelcomeViewModel extends ViewModel {
     private PublishSubject<Boolean> isError = PublishSubject.create();
     private PublishSubject<Integer> chosenValue = PublishSubject.create();
 
+    @Inject
     public WelcomeViewModel(DataManager dataManager, CompositeDisposable compositeDisposable) {
         super(dataManager, compositeDisposable);
     }

@@ -29,10 +29,8 @@ public class WelcomeFragment extends BaseFragment {
         try {
             callback = (OnDecksNumberChosenListener) context;
         } catch (ClassCastException e) {
-            throw new ClassCastException(context.toString()
-                    + " must implement OnHeadlineSelectedListener");
+            throw new ClassCastException(context.toString() + " must implement OnHeadlineSelectedListener");
         }
-
     }
 
     @Override

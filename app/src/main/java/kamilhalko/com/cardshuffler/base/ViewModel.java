@@ -3,7 +3,7 @@ package kamilhalko.com.cardshuffler.base;
 import io.reactivex.disposables.CompositeDisposable;
 import kamilhalko.com.cardshuffler.data.DataManager;
 
-public abstract class ViewModel {
+public class ViewModel {
     private final DataManager dataManager;
     private final CompositeDisposable compositeDisposable;
 
