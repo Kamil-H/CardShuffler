@@ -1,11 +1,9 @@
 package kamilhalko.com.cardshuffler.base;
 
-import android.databinding.BaseObservable;
-
 import io.reactivex.disposables.CompositeDisposable;
 import kamilhalko.com.cardshuffler.data.DataManager;
 
-public class ViewModel extends BaseObservable {
+public class ViewModel {
     private final DataManager dataManager;
     private final CompositeDisposable compositeDisposable;
 

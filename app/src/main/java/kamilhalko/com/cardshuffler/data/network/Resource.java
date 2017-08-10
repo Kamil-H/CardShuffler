@@ -31,4 +31,3 @@ public class Resource<T> {
         return new Resource<>(Status.LOADING, null, null);
     }
 }
-
