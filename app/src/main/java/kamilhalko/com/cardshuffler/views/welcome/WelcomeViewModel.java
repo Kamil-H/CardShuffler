@@ -8,8 +8,8 @@ import kamilhalko.com.cardshuffler.base.ViewModel;
 import kamilhalko.com.cardshuffler.data.DataManager;
 
 public class WelcomeViewModel extends ViewModel {
-    private PublishSubject<Boolean> isError = PublishSubject.create();
-    private PublishSubject<Integer> chosenValue = PublishSubject.create();
+    private PublishSubject<ErrorType> error = PublishSubject.create();
+    private PublishSubject<Integer> count = PublishSubject.create();
 
     @Inject
     public WelcomeViewModel(DataManager dataManager, CompositeDisposable compositeDisposable) {
@@ -18,17 +18,17 @@ public class WelcomeViewModel extends ViewModel {
 
     public void setValue(int value) {
         if (value > 0) {
-            chosenValue.onNext(value);
+            count.onNext(value);
         } else {
-            isError.onNext(true);
+            error.onNext(ErrorType.ZERO_CHOSEN);
         }
     }
 
-    public PublishSubject<Boolean> getIsError() {
-        return isError;
+    public PublishSubject<ErrorType> getError() {
+        return error;
     }
 
-    public PublishSubject<Integer> getChosenValue() {
-        return chosenValue;
+    public PublishSubject<Integer> getCount() {
+        return count;
     }
 }

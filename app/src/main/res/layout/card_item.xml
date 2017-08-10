@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <variable
+            name="item"
+            type="kamilhalko.com.cardshuffler.data.models.Card"/>
+    </data>
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="10dp">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:scaleType="center"
+            app:imageUrl="@{item.image}"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{item.value + ' ' + item.suit}"
+            android:textColor="@color/red"
+            android:textAllCaps="true"
+            android:textStyle="bold"
+            android:layout_marginBottom="5dp"/>
+    </LinearLayout>
+</layout>

@@ -5,4 +5,6 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="ErrorType_no_internet">No Internet connection</string>
     <string name="ErrorType_server_error">Something went wrong on a server side</string>
+    <string name="WelcomeErrorType_different_number">Please choose number other than 0</string>
+    <string name="WelcomeErrorType_unexpected_error">Unexpected error</string>
 </resources>

@@ -6,7 +6,6 @@ import dagger.Module;
 import dagger.Provides;
 import io.reactivex.disposables.CompositeDisposable;
 import kamilhalko.com.cardshuffler.data.DataManager;
-import kamilhalko.com.cardshuffler.di.PerActivity;
 import kamilhalko.com.cardshuffler.views.cards.CardsViewModel;
 import kamilhalko.com.cardshuffler.views.welcome.WelcomeViewModel;
 
@@ -25,13 +24,11 @@ public class ActivityModule {
     }
 
     @Provides
-    @PerActivity
     WelcomeViewModel provideWelcomeViewModel(DataManager dataManager, CompositeDisposable compositeDisposable) {
         return new WelcomeViewModel(dataManager, compositeDisposable);
     }
 
     @Provides
-    @PerActivity
     CardsViewModel provideCardsViewModel(DataManager dataManager, CompositeDisposable compositeDisposable) {
         return new CardsViewModel(dataManager, compositeDisposable);
     }

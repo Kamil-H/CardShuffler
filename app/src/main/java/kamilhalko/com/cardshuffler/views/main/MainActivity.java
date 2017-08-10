@@ -1,21 +1,24 @@
 package kamilhalko.com.cardshuffler.views.main;
 
+import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 
 import kamilhalko.com.cardshuffler.base.BaseActivity;
 import kamilhalko.com.cardshuffler.R;
+import kamilhalko.com.cardshuffler.databinding.ActivityMainBinding;
 import kamilhalko.com.cardshuffler.views.cards.CardsFragment;
 import kamilhalko.com.cardshuffler.views.welcome.WelcomeFragment;
 
 public class MainActivity extends BaseActivity implements WelcomeFragment.OnDecksNumberChosenListener {
+    private ActivityMainBinding binding;
     private FragmentManager fragmentManager = getSupportFragmentManager();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
 
         init();
     }

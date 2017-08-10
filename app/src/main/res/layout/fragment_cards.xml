@@ -1,7 +1,31 @@
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<layout
+xmlns:android="http://schemas.android.com/apk/res/android">
+<data>
+    <import
+        type="android.view.View" />
+    <variable
+        name="viewModel"
+        type="kamilhalko.com.cardshuffler.views.cards.CardsViewModel" />
+    <variable
+        name="status"
+        type="kamilhalko.com.cardshuffler.data.network.Status"/>
+</data>
+<RelativeLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorPrimary">
 
-</LinearLayout>
+    <ProgressBar
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:visibility="@{viewModel.resource.status == status.LOADING ? View.VISIBLE : View.INVISIBLE}"/>
+
+    <android.support.v7.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/recyclerView"
+        android:visibility="@{viewModel.resource.status == status.LOADING ? View.INVISIBLE : View.VISIBLE}">
+    </android.support.v7.widget.RecyclerView>
+</RelativeLayout>
+</layout>
