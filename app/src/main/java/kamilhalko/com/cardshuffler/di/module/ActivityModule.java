@@ -6,6 +6,7 @@ import dagger.Module;
 import dagger.Provides;
 import io.reactivex.disposables.CompositeDisposable;
 import kamilhalko.com.cardshuffler.data.DataManager;
+import kamilhalko.com.cardshuffler.views.cards.CardVariantsValidator;
 import kamilhalko.com.cardshuffler.views.cards.CardsViewModel;
 import kamilhalko.com.cardshuffler.views.welcome.WelcomeViewModel;
 
@@ -24,12 +25,17 @@ public class ActivityModule {
     }
 
     @Provides
+    CardVariantsValidator providesCardVariantsValidator() {
+        return new CardVariantsValidator();
+    }
+
+    @Provides
     WelcomeViewModel provideWelcomeViewModel(DataManager dataManager, CompositeDisposable compositeDisposable) {
         return new WelcomeViewModel(dataManager, compositeDisposable);
     }
 
     @Provides
-    CardsViewModel provideCardsViewModel(DataManager dataManager, CompositeDisposable compositeDisposable) {
-        return new CardsViewModel(dataManager, compositeDisposable);
+    CardsViewModel provideCardsViewModel(DataManager dataManager, CompositeDisposable compositeDisposable, CardVariantsValidator cardVariantsValidator) {
+        return new CardsViewModel(dataManager, compositeDisposable, cardVariantsValidator);
     }
 }

@@ -3,6 +3,9 @@ package kamilhalko.com.cardshuffler.views.cards;
 import android.databinding.ObservableBoolean;
 import android.databinding.ObservableField;
 import android.support.annotation.NonNull;
+import android.util.Log;
+
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -27,10 +30,12 @@ public class CardsViewModel extends ViewModel {
     private PublishSubject<Resource<CardsResponse>> cards = PublishSubject.create();
     private PublishSubject<ApiError> error = PublishSubject.create();
     private String deckId;
+    private CardVariantsValidator cardVariantsValidator;
 
     @Inject
-    public CardsViewModel(DataManager dataManager, CompositeDisposable compositeDisposable) {
+    public CardsViewModel(DataManager dataManager, CompositeDisposable compositeDisposable, CardVariantsValidator cardVariantsValidator) {
         super(dataManager, compositeDisposable);
+        this.cardVariantsValidator = cardVariantsValidator;
     }
 
     public void downloadDecks(int count) {
@@ -102,6 +107,10 @@ public class CardsViewModel extends ViewModel {
             case SUCCESS:
                 setIsRemaining(cardsResponseResource.data.getRemaining() >= 5);
                 cards.onNext(cardsResponseResource);
+                List<CardVariantsValidator.VariantType> variantTypes = cardVariantsValidator.validate(cardsResponseResource.data.getCards());
+                for (CardVariantsValidator.VariantType variantType : variantTypes) {
+                    Log.i("VARIANT", variantType.getDescription());
+                }
                 break;
             case ERROR:
                 error.onNext(cardsResponseResource.apiError);
