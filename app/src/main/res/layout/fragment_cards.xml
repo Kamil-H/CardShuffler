@@ -1,5 +1,7 @@
 <layout
-    xmlns:android="http://schemas.android.com/apk/res/android">
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
     <data>
         <import
             type="android.view.View" />
@@ -10,6 +12,7 @@
             name="status"
             type="kamilhalko.com.cardshuffler.data.network.Status"/>
     </data>
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -19,13 +22,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:visibility="@{viewModel.resource.status == status.LOADING ? View.VISIBLE : View.INVISIBLE}"/>
+            app:isVisible="@{viewModel.resource.status == status.LOADING}"/>
 
         <android.support.v7.widget.RecyclerView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/recyclerView"
-            android:visibility="@{viewModel.resource.status == status.LOADING ? View.INVISIBLE : View.VISIBLE}">
+            app:isVisible="@{viewModel.resource.status != status.LOADING}">
         </android.support.v7.widget.RecyclerView>
 
         <LinearLayout
@@ -35,13 +38,13 @@
             android:layout_marginTop="20dp"
             android:gravity="center"
             android:layout_below="@+id/recyclerView"
-            android:visibility="@{viewModel.resource.status == status.LOADING ? View.INVISIBLE : View.VISIBLE}">
+            app:isVisible="@{viewModel.resource.status != status.LOADING}">
 
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:backgroundTint="@color/colorAccent"
-                android:text="draw cards"
+                android:text="@string/CardsFragment_draw_cards_button"
                 android:layout_marginEnd="10dp"
                 android:enabled="@{viewModel.isRemaining}"
                 android:onClick="@{() -> viewModel.drawCards()}"/>
@@ -50,7 +53,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:backgroundTint="@color/colorAccent"
-                android:text="Reshuffle cards"
+                android:text="@string/CardsFragment_reshuffle_cards_button"
                 android:layout_marginStart="10dp"
                 android:enabled="@{!viewModel.isRemaining}"
                 android:onClick="@{() -> viewModel.reshuffleCards()}"/>
