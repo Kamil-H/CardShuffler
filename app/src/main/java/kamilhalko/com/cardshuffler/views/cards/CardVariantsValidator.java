@@ -1,5 +1,6 @@
 package kamilhalko.com.cardshuffler.views.cards;
 
+import android.content.Context;
 import android.text.TextUtils;
 
 import java.util.ArrayList;
@@ -7,14 +8,15 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import kamilhalko.com.cardshuffler.R;
 import kamilhalko.com.cardshuffler.data.models.Card;
 
 public class CardVariantsValidator {
 
     public List<VariantType> validate(List<Card> cards) {
         List<VariantType> variantTypes = new ArrayList<>();
-        if (isColour(cards)) {
-            variantTypes.add(VariantType.COLOUR);
+        if (isColor(cards)) {
+            variantTypes.add(VariantType.COLOR);
         }
         if (areStairs(cards)) {
             variantTypes.add(VariantType.STAIRS);
@@ -22,13 +24,13 @@ public class CardVariantsValidator {
         if (isFigure(cards)) {
             variantTypes.add(VariantType.FIGURE);
         }
-        if (isPair(cards)) {
-            variantTypes.add(VariantType.PAIR);
+        if (areTwins(cards)) {
+            variantTypes.add(VariantType.TWINS);
         }
         return variantTypes;
     }
 
-    private boolean isColour(List<Card> cards) {
+    private boolean isColor(List<Card> cards) {
         Map<String, Integer> map = new HashMap<>();
         for (Card card : cards) {
             Integer count = map.get(card.getSuit());
@@ -69,7 +71,7 @@ public class CardVariantsValidator {
         return figureCount >= 3;
     }
 
-    private boolean isPair(List<Card> cards) {
+    private boolean areTwins(List<Card> cards) {
         Map<String, Integer> map = new HashMap<>();
         for (Card card : cards) {
             Integer count = map.get(card.getValue());
@@ -107,21 +109,21 @@ public class CardVariantsValidator {
     }
 
     public enum VariantType {
-        COLOUR,
+        COLOR,
         STAIRS,
         FIGURE,
-        PAIR;
+        TWINS;
 
-        public String getDescription() {
+        public String getDescription(Context context) {
             switch (this) {
-                case COLOUR:
-                    return "Color!";
+                case COLOR:
+                    return context.getString(R.string.VariantType_color);
                 case STAIRS:
-                    return "Stairs!";
+                    return context.getString(R.string.VariantType_stairs);
                 case FIGURE:
-                    return "Figure!";
-                case PAIR:
-                    return "Pair!";
+                    return context.getString(R.string.VariantType_figure);
+                case TWINS:
+                    return context.getString(R.string.VariantType_twins);
                 default:
                     return null;
             }

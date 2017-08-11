@@ -3,7 +3,6 @@ package kamilhalko.com.cardshuffler.views.cards;
 import android.databinding.ObservableBoolean;
 import android.databinding.ObservableField;
 import android.support.annotation.NonNull;
-import android.util.Log;
 
 import java.util.List;
 
@@ -26,6 +25,7 @@ import kamilhalko.com.cardshuffler.data.network.error.ApiError;
 
 public class CardsViewModel extends ViewModel {
     private ObservableField<Resource> resource = new ObservableField<>();
+    private ObservableField<List<CardVariantsValidator.VariantType>> variantTypes = new ObservableField<>();
     private ObservableBoolean isRemaining = new ObservableBoolean();
     private PublishSubject<Resource<CardsResponse>> cards = PublishSubject.create();
     private PublishSubject<ApiError> error = PublishSubject.create();
@@ -107,10 +107,7 @@ public class CardsViewModel extends ViewModel {
             case SUCCESS:
                 setIsRemaining(cardsResponseResource.data.getRemaining() >= 5);
                 cards.onNext(cardsResponseResource);
-                List<CardVariantsValidator.VariantType> variantTypes = cardVariantsValidator.validate(cardsResponseResource.data.getCards());
-                for (CardVariantsValidator.VariantType variantType : variantTypes) {
-                    Log.i("VARIANT", variantType.getDescription());
-                }
+                setVariantTypes(cardVariantsValidator.validate(cardsResponseResource.data.getCards()));
                 break;
             case ERROR:
                 error.onNext(cardsResponseResource.apiError);
@@ -142,5 +139,14 @@ public class CardsViewModel extends ViewModel {
 
     public ObservableField<Resource> getResource() {
         return resource;
+    }
+
+    public ObservableField<List<CardVariantsValidator.VariantType>> getVariantTypes() {
+        return variantTypes;
+    }
+
+    public void setVariantTypes(List<CardVariantsValidator.VariantType> variantTypes) {
+        this.variantTypes.set(variantTypes);
+        this.variantTypes.notifyChange();
     }
 }

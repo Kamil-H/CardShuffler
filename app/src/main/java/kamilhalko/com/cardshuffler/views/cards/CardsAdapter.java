@@ -10,7 +10,7 @@ import java.util.List;
 
 import kamilhalko.com.cardshuffler.R;
 import kamilhalko.com.cardshuffler.data.models.Card;
-import kamilhalko.com.cardshuffler.databinding.CardItemBinding;
+import kamilhalko.com.cardshuffler.databinding.ItemCardBinding;
 
 public class CardsAdapter extends RecyclerView.Adapter<CardsAdapter.ViewHolder> {
     private List<Card> cardList = new ArrayList<>();
@@ -22,7 +22,7 @@ public class CardsAdapter extends RecyclerView.Adapter<CardsAdapter.ViewHolder> 
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        CardItemBinding binding = DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()), R.layout.card_item, parent, false);
+        ItemCardBinding binding = DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()), R.layout.item_card, parent, false);
         return new ViewHolder(binding);
     }
 
@@ -38,9 +38,9 @@ public class CardsAdapter extends RecyclerView.Adapter<CardsAdapter.ViewHolder> 
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        private final CardItemBinding binding;
+        private final ItemCardBinding binding;
 
-        public ViewHolder(CardItemBinding binding) {
+        public ViewHolder(ItemCardBinding binding) {
             super(binding.getRoot());
             this.binding = binding;
         }

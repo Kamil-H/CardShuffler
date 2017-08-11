@@ -8,4 +8,9 @@
     <string name="WelcomeFragment_start_button">Start the game!</string>
     <string name="CardsFragment_draw_cards_button">draw cards</string>
     <string name="CardsFragment_reshuffle_cards_button">Reshuffle cards</string>
+    <string name="VariantType_color">Color - at least 3 cards are of the same suit.</string>
+    <string name="VariantType_stairs">Stairs - at least 3 cards are rising or falling (eg. 4, 5, 6 or Jack, 10, 9).</string>
+    <string name="VariantType_figure">Figure - at least 3 cards are figures (eg. Jack, Queen, King).</string>
+    <string name="VariantType_twins">Twins - at least 3 cards have the same value (eg. 3x King)</string>
+    <string name="CardsFragment_title_information">Card variants that were detected</string>
 </resources>
