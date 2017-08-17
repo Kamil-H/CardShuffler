@@ -6,6 +6,13 @@ public class Card {
     private String suit;
     private String code;
 
+    public Card(String image, String value, String suit, String code) {
+        this.image = image;
+        this.value = value;
+        this.suit = suit;
+        this.code = code;
+    }
+
     public String getImage() {
         return image;
     }

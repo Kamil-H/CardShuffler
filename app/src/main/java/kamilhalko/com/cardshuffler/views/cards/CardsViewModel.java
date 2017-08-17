@@ -48,7 +48,6 @@ public class CardsViewModel extends ViewModel {
                         return onDeckResource(deckResource);
                     }
                 })
-                .subscribeOn(Schedulers.computation())
                 .subscribe(new Consumer<Resource<CardsResponse>>() {
                     @Override
                     public void accept(@io.reactivex.annotations.NonNull Resource<CardsResponse> cardsResponse) throws Exception {
@@ -79,7 +78,6 @@ public class CardsViewModel extends ViewModel {
                         return onDeckResource(deckResource);
                     }
                 })
-                .subscribeOn(Schedulers.computation())
                 .subscribe(new Consumer<Resource<CardsResponse>>() {
                     @Override
                     public void accept(@io.reactivex.annotations.NonNull Resource<CardsResponse> cardsResponse) throws Exception {
@@ -89,7 +87,7 @@ public class CardsViewModel extends ViewModel {
     }
 
     private Observable<Resource<CardsResponse>> onDeckResource(Resource<Deck> deckResource) {
-        setResource(deckResource);
+        resource.set(deckResource);
         switch (deckResource.status) {
             case SUCCESS:
                 deckId = deckResource.data.getDeckId();
@@ -102,12 +100,12 @@ public class CardsViewModel extends ViewModel {
     }
 
     private void onCardsResponse(Resource<CardsResponse> cardsResponseResource) {
-        setResource(cardsResponseResource);
+        resource.set(cardsResponseResource);
         switch (cardsResponseResource.status) {
             case SUCCESS:
-                setIsRemaining(cardsResponseResource.data.getRemaining() >= 5);
+                isRemaining.set(cardsResponseResource.data.getRemaining() >= 5);
                 cards.onNext(cardsResponseResource);
-                setVariantTypes(cardVariantsValidator.validate(cardsResponseResource.data.getCards()));
+                variantTypes.set(cardVariantsValidator.validate(cardsResponseResource.data.getCards()));
                 break;
             case ERROR:
                 error.onNext(cardsResponseResource.apiError);
@@ -115,18 +113,8 @@ public class CardsViewModel extends ViewModel {
         }
     }
 
-    private void setResource(Resource resourceValue) {
-        resource.set(resourceValue);
-        resource.notifyChange();
-    }
-
     public ObservableBoolean getIsRemaining() {
         return isRemaining;
-    }
-
-    public void setIsRemaining(boolean isRemaining) {
-        this.isRemaining.set(isRemaining);
-        this.isRemaining.notifyChange();
     }
 
     public PublishSubject<ApiError> getError() {
@@ -143,10 +131,5 @@ public class CardsViewModel extends ViewModel {
 
     public ObservableField<List<CardVariantsValidator.VariantType>> getVariantTypes() {
         return variantTypes;
-    }
-
-    public void setVariantTypes(List<CardVariantsValidator.VariantType> variantTypes) {
-        this.variantTypes.set(variantTypes);
-        this.variantTypes.notifyChange();
     }
 }

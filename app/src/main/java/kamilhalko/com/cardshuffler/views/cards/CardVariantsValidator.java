@@ -1,7 +1,6 @@
 package kamilhalko.com.cardshuffler.views.cards;
 
 import android.content.Context;
-import android.text.TextUtils;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -105,7 +104,7 @@ public class CardVariantsValidator {
     }
 
     private boolean isCardFigure(Card card) {
-        return !TextUtils.isDigitsOnly(card.getValue());
+        return !card.getValue().matches("[2-9]|10");
     }
 
     public enum VariantType {
