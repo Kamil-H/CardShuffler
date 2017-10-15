@@ -9,8 +9,6 @@ import android.view.ViewGroup;
 
 import javax.inject.Inject;
 
-import io.reactivex.annotations.NonNull;
-import io.reactivex.functions.Consumer;
 import kamilhalko.com.cardshuffler.base.BaseFragment;
 import kamilhalko.com.cardshuffler.databinding.FragmentWelcomeBinding;
 
@@ -47,28 +45,15 @@ public class WelcomeFragment extends BaseFragment {
     }
 
     private void setUpView() {
-        binding.button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                viewModel.setValue(binding.seekBar.getProgress());
-            }
-        });
+        binding.button.setOnClickListener(view -> viewModel.setValue(binding.seekBar.getProgress()));
     }
 
     private void initObservers() {
-        viewModel.getError().subscribe(new Consumer<ErrorType>() {
-            @Override
-            public void accept(@NonNull ErrorType errorType) throws Exception {
-                onError(errorType.getText(getBaseActivity()));
-            }
-        });
+        viewModel.getError().subscribe(errorType -> onError(errorType.getText(getBaseActivity())));
 
-        viewModel.getCount().subscribe(new Consumer<Integer>() {
-            @Override
-            public void accept(@NonNull Integer integer) throws Exception {
-                if (callback != null) {
-                    callback.onDecksNumberChosen(integer);
-                }
+        viewModel.getCount().subscribe(integer -> {
+            if (callback != null) {
+                callback.onDecksNumberChosen(integer);
             }
         });
     }

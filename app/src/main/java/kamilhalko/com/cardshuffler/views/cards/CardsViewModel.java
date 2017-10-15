@@ -2,18 +2,14 @@ package kamilhalko.com.cardshuffler.views.cards;
 
 import android.databinding.ObservableBoolean;
 import android.databinding.ObservableField;
-import android.support.annotation.NonNull;
 
 import java.util.List;
 
 import javax.inject.Inject;
 
 import io.reactivex.Observable;
-import io.reactivex.ObservableSource;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
-import io.reactivex.functions.Consumer;
-import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
 import io.reactivex.subjects.PublishSubject;
 import kamilhalko.com.cardshuffler.base.ViewModel;
@@ -42,48 +38,23 @@ public class CardsViewModel extends ViewModel {
         getCompositeDisposable().add(getDataManager().getDecks(count)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .flatMap(new Function<Resource<Deck>, ObservableSource<Resource<CardsResponse>>>() {
-                    @Override
-                    public ObservableSource<Resource<CardsResponse>> apply(@NonNull Resource<Deck> deckResource) throws Exception {
-                        return onDeckResource(deckResource);
-                    }
-                })
-                .subscribe(new Consumer<Resource<CardsResponse>>() {
-                    @Override
-                    public void accept(@io.reactivex.annotations.NonNull Resource<CardsResponse> cardsResponse) throws Exception {
-                        onCardsResponse(cardsResponse);
-                    }
-                }));
+                .flatMap(this::onDeckResource)
+                .subscribe(this::onCardsResponse));
     }
 
     public void drawCards() {
         getCompositeDisposable().add(getDataManager().getCards(deckId)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(new Consumer<Resource<CardsResponse>>() {
-                @Override
-                public void accept(@io.reactivex.annotations.NonNull Resource<CardsResponse> cardsResponseResource) throws Exception {
-                    onCardsResponse(cardsResponseResource);
-                }
-            }));
+            .subscribe(this::onCardsResponse));
     }
 
     public void reshuffleCards() {
         getCompositeDisposable().add(getDataManager().shuffleCard(deckId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .flatMap(new Function<Resource<Deck>, ObservableSource<Resource<CardsResponse>>>() {
-                    @Override
-                    public ObservableSource<Resource<CardsResponse>> apply(@NonNull Resource<Deck> deckResource) throws Exception {
-                        return onDeckResource(deckResource);
-                    }
-                })
-                .subscribe(new Consumer<Resource<CardsResponse>>() {
-                    @Override
-                    public void accept(@io.reactivex.annotations.NonNull Resource<CardsResponse> cardsResponse) throws Exception {
-                        onCardsResponse(cardsResponse);
-                    }
-                }));
+                .flatMap(this::onDeckResource)
+                .subscribe(this::onCardsResponse));
     }
 
     private Observable<Resource<CardsResponse>> onDeckResource(Resource<Deck> deckResource) {

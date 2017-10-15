@@ -9,12 +9,7 @@ import android.view.ViewGroup;
 
 import javax.inject.Inject;
 
-import io.reactivex.annotations.NonNull;
-import io.reactivex.functions.Consumer;
 import kamilhalko.com.cardshuffler.base.BaseFragment;
-import kamilhalko.com.cardshuffler.data.models.CardsResponse;
-import kamilhalko.com.cardshuffler.data.network.Resource;
-import kamilhalko.com.cardshuffler.data.network.error.ApiError;
 import kamilhalko.com.cardshuffler.databinding.FragmentCardsBinding;
 
 public class CardsFragment extends BaseFragment {
@@ -54,19 +49,8 @@ public class CardsFragment extends BaseFragment {
     }
 
     private void initObservers() {
-        cardsViewModel.getCards().subscribe(new Consumer<Resource<CardsResponse>>() {
-            @Override
-            public void accept(@NonNull Resource<CardsResponse> cardsResponseResource) throws Exception {
-                cardsAdapter.setCardList(cardsResponseResource.data.getCards());
-            }
-        });
-
-        cardsViewModel.getError().subscribe(new Consumer<ApiError>() {
-            @Override
-            public void accept(@NonNull ApiError apiError) throws Exception {
-                onError(apiError.getErrorType().getMessage(getBaseActivity()));
-            }
-        });
+        cardsViewModel.getCards().subscribe(cardsResponseResource -> cardsAdapter.setCardList(cardsResponseResource.data.getCards()));
+        cardsViewModel.getError().subscribe(apiError -> onError(apiError.getErrorType().getMessage(getBaseActivity())));
     }
 
     private void setUpRecyclerView() {
